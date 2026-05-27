@@ -1,13 +1,44 @@
+import controllers.BrandController;
 import models.Brand;
 import models.CarModel;
 import models.CarYear;
 
 public class App {
-        public static void main(String[] args) throws Exception {
+         public static void main(String[] args) throws Exception {
                 System.out.println("Examen interciclo de Estructuras de Datos");
                 System.out.println("====Configurar studente.env====");
+                Brand[] brands = createBrands();
+                BrandController brandController = new BrandController();
 
+                System.out.println("Original: ");
+                for (Brand brand : brands) {
+                        System.out.println(brand.getBrandName() + " - Años Válidos: " + brand.getTotalValidYears());
+                }
+
+                // Ordenar en orden descendente
+                brands = brandController.sortBubbleDesc(brands);
+                System.out.println("\nOrdenado (Descendente): ");
+                for (Brand brand : brands) {
+                        System.out.println(brand.getBrandName() + " - Años Válidos: " + brand.getTotalValidYears());
+                }
+
+                System.out.println("\nBuscar marca con 7 años válidos que se ordenaron de mayor a menor: ");
+                Brand result1 = brandController.binarySearchByValidYears(brands, 7, false);
+                if (result1 != null) {
+                        System.out.println("Encontrada: Marca: " + result1.getBrandName() + ", Total de años válidos: " + result1.getTotalValidYears());
+                } else {
+                        System.out.println("Marca no encontrada.");
+                }
+
+                System.out.println("\nBuscar marca con 4 años válidos que se ordenaron de mayor a menor: ");
+                Brand result2 = brandController.binarySearchByValidYears(brands, 4, false);
+                if (result2 != null) {
+                        System.out.println("Encontrada: Marca: " + result2.getBrandName() + ", Total de años válidos: " + result2.getTotalValidYears());
+                } else {
+                        System.out.println("Marca no encontrada.");
+                }
         }
+        
 
         /**
          * Crea un arreglo de marcas de ejemplo para pruebas
